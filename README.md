@@ -1,51 +1,59 @@
-# SQL Task 7 - Database Constraints & Cascading Deletes
+# 📊 Elevate Lab SQL Task 7: Database Constraints & Cascading Deletes
 
-This project demonstrates the implementation of relational database concepts using SQL, specifically focusing on **Foreign Key Constraints** and the **ON DELETE CASCADE** behavior.
+A professional SQL project demonstrating the implementation of relational database concepts, specifically focusing on Foreign Key Constraints and the ON DELETE CASCADE behavior.
 
-## Project Overview
+## 📌 Project Objective
 
-The goal of this task is to create a simple two-table relational structure representing departments and employees. It illustrates how data integrity is maintained across related tables and how automated cleanup works when parent records are deleted.
+The primary goal of this task is to create a simple two-table relational structure representing departments and employees. It illustrates how data integrity is maintained across related tables and how automated cleanup works when parent records are deleted.
 
-## Database Schema
+## 🛠️ Technical Scope
 
-The database consists of two main tables:
+- **Database Management System:** SQL (MySQL / PostgreSQL / SQL Server compatible)
+- **Core Concepts:** Relational Database Design, Data Integrity
+- **Advanced Techniques:** Foreign Key Constraints (`FOREIGN KEY`, `REFERENCES`), Cascading Actions (`ON DELETE CASCADE`)
 
-1.  **`departments`**: Stores organizational department information.
-    - `department_id` (INT, Primary Key)
-    - `department_name` (VARCHAR)
+## 🗄️ Database Schema
 
-2.  **`employees`**: Stores individual employee records linked to departments.
-    - `employee_id` (INT, Primary Key)
-    - `employee_name` (VARCHAR)
-    - `department_id` (INT, Foreign Key referencing `departments.department_id`)
+### `departments` Table
 
-## Key Features
+| Column            | Data Type     | Constraint / Description         |
+| :---------------- | :------------ | :------------------------------- |
+| `department_id`   | `INT`         | Primary Key                      |
+| `department_name` | `VARCHAR(50)` | Name of the Department, Not Null |
 
-### 1. Foreign Key Constraints
+### `employees` Table
 
-The schema enforces referential integrity. An employee cannot be assigned to a `department_id` that does not exist in the `departments` table. Any attempt to insert an invalid record will result in a foreign key constraint error.
+| Column          | Data Type     | Constraint / Description                                  |
+| :-------------- | :------------ | :-------------------------------------------------------- |
+| `employee_id`   | `INT`         | Primary Key                                               |
+| `employee_name` | `VARCHAR(50)` | Full Name of Employee, Not Null                           |
+| `department_id` | `INT`         | Foreign Key referencing `departments.department_id`       |
 
-### 2. ON DELETE CASCADE
+## 💻 SQL Implementations
 
-This feature automatically handles the deletion of related records. When a department is removed from the `departments` table, all employees associated with that department are automatically deleted from the `employees` table. This ensures no orphaned records are left behind.
+Key operations demonstrated in the script:
 
-## How to Run
+1. **Schema Creation & Relations:**
+   - Creation of the `task7` database.
+   - Creating `departments` and `employees` tables with a primary key / foreign key relationship.
+   - Enforcing `ON DELETE CASCADE` to automatically remove child records.
+2. **Data Insertion (Valid & Invalid):**
+   - Inserting valid department and employee records.
+   - Attempting an invalid insert (assigning an employee to a non-existent department) to demonstrate foreign key constraint errors.
+3. **Cascading Deletion:**
+   - Deleting a department record.
+   - Verifying the automatic deletion of all employees associated with the deleted department without requiring manual intervention.
 
-To execute the SQL script and observe these behaviors:
+## 🚀 Setup & Execution
 
-1.  Ensure you have a SQL database system installed (e.g., MySQL or PostgreSQL).
-2.  Open your SQL client or terminal.
-3.  Run the following command to execute the script:
-    ```sql
-    SOURCE task7.sql;
-    ```
-    _(Note: The command may vary depending on your SQL environment.)_
+1. **Initialize:** Execute the script to create the `task7` database and both tables.
+2. **Populate Data:** Run the `INSERT` statements to load initial departments and employees.
+3. **Test Constraints:** Execute the invalid `INSERT` statement to observe the foreign key constraint failure.
+4. **Demonstrate Cascade:** Run the `DELETE` statement on a department and use `SELECT` to verify that associated employees have been automatically removed.
 
-## Sample Queries
+> [!IMPORTANT]
+> The `ON DELETE CASCADE` option is powerful for maintaining clean data, but must be used carefully to prevent unintended mass data deletion when parent records are removed.
 
-The `task7.sql` script includes several queries to verify the database state:
+---
 
-- **Insert Valid Records**: Initial data setup for departments and employees.
-- **Fail Invalid Insert**: Demonstrates the error when using a non-existent department ID.
-- **Cascading Delete**: Shows the automatic removal of employees when a department is deleted.
-- **Verify Final State**: Displays the remaining records to confirm cascading behavior.
+*Developed for Elevate Lab Internship Program - SQL Practice and Interview Preparation.*
